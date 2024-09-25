@@ -1,4 +1,16 @@
 const helper = {
+  // DEVICE HELPER
+  isTouchDevice:() => {
+    const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+    const mq = (query) => { window.matchMedia(query).matches; };
+  
+    if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) {
+      return true;
+    }
+    const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+    return mq(query);
+  },
+
   // FRONT HELPER
   widthScrollbar: () => {
     const scrollbarWidth = window.innerWidth - document.body.clientWidth;
@@ -31,7 +43,10 @@ const helper = {
     const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   },
+
 }
 
 export default helper;
+
+
 
