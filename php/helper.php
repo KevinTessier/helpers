@@ -30,7 +30,7 @@ class Helper
 
     // PAGINATION
     /**
-     * Undocumented function
+     *  
      *
      * @param [type] $limit
      * @return void
