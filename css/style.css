@@ -1,0 +1,11 @@
+/* MÉDIA QUERIES */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* TEXT */
+p{
+    max-width:70ch;
+}
