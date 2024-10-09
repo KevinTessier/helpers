@@ -4,8 +4,67 @@
         scroll-behavior: smooth;
     }
 }
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #e6ffc2;
+        background-color: #494949;
+    }
+}
 
 /* TEXT */
 p{
     max-width:70ch;
 }
+
+/* LIEN ACTIF */
+* {
+    outline: none;
+}
+
+*:focus {
+    color: white;
+    background-color: #0c57a1;
+}
+
+/* QUICK ACCESS */
+.quickAccess {
+    position: absolute !important;
+    top: -1000px;
+}
+
+.quickAccess:focus {
+    top:0px;
+    color: white;
+    background-color: black;
+}
+
+/* BACKGROUND IMAGE COMPLETE WITCH JS IN IMGSUPPORT.JS FILE */
+.avif .fondImage {
+    background-image: url('images/fleurs.avif');
+}
+.webp.notavif .fondImage {
+    background-image: url('images/fleurs.webp');
+}
+.notwebP.notavif .fondImage {
+    background-image: url('images/fleurs.jpg');
+}
+p {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+ 
+/* COLOR BACKGROUND SUBTITLE */
+::cue {
+    opacity: .7;
+}
+
+/* CONTROLE AUDIO COMPLET WITH LECTEURAUDIO.JS */
+.lecteurDEcran {
+    position: absolute !important;
+    top: -1000px !important;
+}
+#controlesAudio {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+}
+  

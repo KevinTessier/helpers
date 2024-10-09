@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les regroupements thématiques</title>
+</head>
+<body>
+
+    <!-- FORM WITH AUTOCOMPLETE -->
+    <form method="GET" action="#">
+        <fieldset>
+            <legend>Adresse de livraison</legend>
+            <label for="prenom">Prénom</label>
+            <input type="text" name="livraison[prenom]" id="prenom" autocomplete="given-name">
+            <label for="nom">Nom</label>
+            <input type="text" name="livraison[nom]" id="nom" autocomplete="family-name">
+            <label for="adresseLivraison">Adresse</label>
+            <input type="text" name="livraison[adresse]" id="adresseLivraison" autocomplete="address-line1">
+            <label for="adresseComplementLivraison">Complément d'adresse</label>
+            <input type="text" name="livraison[adresseComplement]" id="adresseComplementLivraison" autocomplete="address-line2">
+            <label for="cpLivraison">Code postal</label>
+            <input type="text" name="livraison[cp]" id="cpLivraison" autocomplete="postal-code">
+            <label for="villeLivraison">Ville</label>
+            <input type="text" name="livraison[ville]" id="villeLivraison" autocomplete="address-level2">
+        </fieldset>
+        <input type="submit">
+    </form>
+
+    <!-- FORM WITH PATTERN -->
+    <form method="GET" action="#">
+        <span>Les champs marqués avec * sont obligatoires</span><br>
+        <label for="numeroSecuriteSociale">Numéro de sécurité sociale *</label>
+        <input type="text" name="numeroSecuriteSociale" id="numeroSecuriteSociale" title="13 chiffres" pattern="^\d{13}$" required>
+        <input type="submit">
+    </form>
+
+    <!-- REGROUPEMENT THÉMATIQUE -->
+    <form method="GET" action="#">
+        <fieldset>
+            <legend>Adresse de livraison</legend>
+            <label for="adresseLivraison">Adresse</label>
+            <input type="text" name="livraison[adresse]" id="adresseLivraison">
+            <label for="adresseComplementLivraison">Complément d'adresse</label>
+            <input type="text" name="livraison[adresseComplement]" id="adresseComplementLivraison">
+            <label for="cpLivraison">Code postal</label>
+            <input type="text" name="livraison[cp]" id="cpLivraison">
+            <label for="villeLivraison">Ville</label>
+            <input type="text" name="livraison[ville]" id="villeLivraison">
+        </fieldset>
+        <fieldset>
+            <legend>Adresse de facturation</legend>
+            <label for="adresseFacturation">Adresse</label>
+            <input type="text" name="facturation[adresse]" id="adresseFacturation">
+            <label for="adresseComplementFacturation">Complément d'adresse</label>
+            <input type="text" name="facturation[adresseComplement]" id="adresseComplementFacturation">
+            <label for="cpFacturation">Code postal</label>
+            <input type="text" name="facturation[cp]" id="cpFacturation">
+            <label for="villeFacturation">Ville</label>
+            <input type="text" name="facturation[ville]" id="villeFacturation">
+        </fieldset>
+        <input type="submit">
+    </form>
+</body>
+</html>

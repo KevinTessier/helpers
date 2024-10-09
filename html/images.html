@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Les formats WebP et AVIF</title>
+    </head>
+    <body>
+        <picture>
+            <source srcset="images/fleurs.avif" type="image/avif"> 
+            <source srcset="images/fleurs.webp" type="image/webp">
+            <img src="images/fleurs.jpg" alt="" loading="lazy">
+        </picture>
+
+        <picture>
+            <source srcset="images/petite.jpg" media="(max-width: 619px)">
+            <source srcset="images/moyenne.jpg" media="(min-width: 620px) and (max-width: 1219px)">
+            <img src="images/grande.jpg" alt="" loading="lazy">
+        </picture>
+
+        <!-- Description -->
+        <img src="images/equipeENIWomensCup.jpg" alt="L'équipe ENI de la régate 100% féminine">
+
+    </body>
+</html>

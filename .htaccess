@@ -1,0 +1,26 @@
+# CACHE SERVEUR WEB
+CacheEnable mem /cache
+MCacheSize 100000000
+MCacheMaxObjectCount 1000
+MCacheMinObjectSize 100
+MCacheMaxObjectSize 1000000 
+
+# CACHE_NAV
+<filesMatch ".(css|js|html)$">
+    Header set Cache-Control "max-age=864000, public"
+</filesMatch>
+<filesMatch ".(ico|webp|png|gif|svg|avif|jpg)$">
+    Header set Cache-Control "max-age=31536000, public"
+</filesMatch>
+
+# L'imposition de passer par le https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# L'optimisation de la charge du serveur
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE text/html text/css text/plain application/x-javascript

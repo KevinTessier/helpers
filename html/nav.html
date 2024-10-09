@@ -1,0 +1,113 @@
+<?php
+if (filter_input(INPUT_POST, 'envoyer', FILTER_SANITIZE_STRING)) {
+  // Vérification du reCAPTCHA
+  $captcha = filter_input(INPUT_POST, 'g-recaptcha-response', FILTER_SANITIZE_STRING);
+  if($captcha) {
+    $clefSecrete = 'la clef secrète fournie par Google';
+    $reponseJSon = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$clefSecrete.'&response='.$captcha);
+    $reponse = json_decode($reponseJSon);
+    if(!$reponse->success) {
+      $erreur = 'Vous n\'avez pas validé le captcha';
+    }
+  } else {
+    $erreur = 'Captcha manquant';
+  }
+  // vérification des données envoyées
+  if (!isset($erreur)) {
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    if(!$email) {
+        $erreur = 'Votre email n\'a pas été correctement renseigné';
+    }
+  }
+  if (!isset($erreur)) {
+    $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+    if(!$message) {
+        $erreur = 'Votre message n\'a pas été correctement renseigné';
+    }
+  }
+  if (!isset($erreur)) {
+    // envoi du message (code à adapter en fonction des possibilités données par votre hébergeur
+    $from='From: votreEmailDEnvoi\r\nReturn-path: '.$email;
+    mail('votreEmailDeReception', 'Message envoyé depuis le site web du livre Green IT et Accessibilité', $message, $from);
+    header('location: confirmation.html');
+    die();
+  }
+}
+?>
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <title>Contact - Green IT et Accessibilité - Créer un site web Numérique Responsable</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/app.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/impression.css" media="print">
+    <link href="images/favicon.ico" rel="shortcut icon">
+    <meta name="description" content="le livre Green IT et Accessibilité : Créer un site internet Numérique Responsable. Contactez-moi au travers de ce formulaire ou par e-mail">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  </head>
+  <body>
+    <nav>
+      <a href="#main" class="quickAccess">contenu</a>
+    </nav>
+    <header>
+      <a href="index.html" title="vers la page d'accueil"><img src="images/home.svg" alt="Accueil"></a>
+      <button aria-expanded="true" class="hidden-sm hidden-big" id="btnMenu">
+        <span class="hidden-sm" title="déployer le menu" id="burger" aria-hidden="true">&#x2630;</span>
+        <span title="réduire le menu" id="fermer" aria-hidden="true">&#x2A2F;</span><br>
+        Menu
+      </button>
+      <nav role="navigation" aria-label="Menu de navigation principal" id="nav">
+        <ul id="menu">
+          <li>
+            <span id="accueil" aria-hidden="true">
+              &#x2302;
+            </span>
+            <a href="index.html">Accueil</a>
+          </li>
+          <li>
+            <span id="contact" aria-hidden="true">@ </span>
+            <a href="contact.php">Contact</a>
+          </li>
+          <li>
+            <span id="erratum" aria-hidden="true">
+              &#x26A0;
+            </span>
+            <a href="erratum.html">Erratum</a></li>
+          <li>
+            <span id="ressources" aria-hidden="true">
+              &#x26d3;
+            </span>
+            <a href="ressources.html">Ressources</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main" role="main" tabindex="-1">
+    Ce code n'est pas directement fonctionnel. Il nécessaite de créer votre clef privée et votre clef public pour votre <a href="https://www.google.com/recaptcha/admin/create">ReCAPTCHA</a>.
+      <h1>Contact</h1>
+      <p>Vous pouvez me contacter pour me transmettre tout un tas de messages. Cela peut être pour me donner votre avis sur le livre, m'indiquer une erreur, me proposer des améliorations ou juste pour le plaisir de m'envoyer un gentil message !</p>
+      <p>Pour cela, vous pouvez soit m'envoyer un e-mail : <a href="mailto:hboisgontier@eni-ecole.fr">hboisgontier@eni-ecole.fr</a> soit compléter le formulaire ci-dessus :</p>
+      <form method="POST">
+          <?php
+            if(isset($erreur)) {
+                echo '<p class="erreur">'.$message.'</p>';
+            }
+          ?>
+        <label for="email">E-Mail (obligatoire)</label>
+        <input type="email" name="email" autocomplete="email" id="email" required <?php if(isset($email)) echo 'value="'.$email.'"'; ?>>
+        <label for="message">Message (obligatoire)</label>
+        <textarea name="message" id="message" required rows="10"><?php if(isset($message)) echo $message; ?></textarea>
+        <div class="g-recaptcha" data-sitekey="6Ler-qMbAAAAAHCopFP68iRcf5sFL27OLzrmYTlh"></div>
+        <input type="submit" name="envoyer" value="Envoyer">
+      </form>
+    </main>
+    <footer>
+      <ul>
+        <li><a href="mentionsLegales.html">Mentions légales</a></li>
+        <li><a href="declarationAccessibilite.html">Déclaration d'accessibilité</a></li>
+      </ul>
+    </footer>
+    <script src="js/menu.js" type="text/javascript"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </body>
+</html>
